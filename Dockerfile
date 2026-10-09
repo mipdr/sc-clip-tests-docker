@@ -53,6 +53,13 @@ RUN QUARKS_DIR="/root/.local/share/SuperCollider/downloaded-quarks" && \
 # Create extensions directory
 RUN mkdir -p /root/.local/share/SuperCollider/Extensions
 
+# Create sclang_conf.yaml to include user Extensions directory
+RUN mkdir -p /root/.config/SuperCollider && \
+    echo 'includePaths:' > /root/.config/SuperCollider/sclang_conf.yaml && \
+    echo '  - /root/.local/share/SuperCollider/Extensions' >> /root/.config/SuperCollider/sclang_conf.yaml && \
+    echo 'excludePaths: []' >> /root/.config/SuperCollider/sclang_conf.yaml && \
+    echo 'postInlineWarnings: false' >> /root/.config/SuperCollider/sclang_conf.yaml
+
 # Set working directory
 WORKDIR /workspace
 
